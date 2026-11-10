@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Unidad 4 de Herramientas de Inteligencia Artificial, FCEIA–UNR. Construí, verificá y mejorá una herramienta de Física con Gemini Canvas.">
+<meta name="referrer" content="no-referrer">
+<title>VibeCoding: construí una herramienta de Física con IA · CHIA · FCEIA–UNR</title>
+<style>
+.substage{font-size:1.15rem;margin:30px 0 12px;padding-top:22px;border-top:1px solid var(--line)}.substage.first{margin-top:18px;padding-top:0;border-top:0}
+.codigo{min-height:16rem;font-family:ui-monospace,Consolas,monospace;font-size:.9rem;tab-size:2}
+.prompt-elements{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:4px 18px}.prompt-elements .check{margin:4px 0}
+:root{--um-blue:#15246E;--um-blue-2:#2173A6;--um-blue-dark:#185E86;--accent:#1FBF92;--sky:#84B1D9;--paper:#fff;--bg:#F6F9FC;--ink:#15246E;--muted:#52627b;--line:#DCE5EF;--soft:#EEF4FA;--radius:12px;--shadow:0 2px 10px rgba(20,33,61,.10);--font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font-sans);color:var(--ink);background:var(--bg);line-height:1.55}a{color:var(--um-blue-2)}a,button{touch-action:manipulation}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--um-blue-2);outline-offset:3px} .skip{position:absolute;left:16px;top:-100px;background:white;padding:12px;z-index:5}.skip:focus{top:12px}
+.accent-bar{height:6px;background:linear-gradient(90deg,var(--accent),var(--sky) 60%,var(--um-blue-2))}header.site{background:linear-gradient(135deg,var(--um-blue),var(--um-blue-2));color:white;padding:26px 16px 28px}.inner,.wrap{max-width:1080px;margin:auto}.wrap{padding:0 16px 60px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}.brand-logo{height:46px;max-width:100%;width:auto;display:block}.unit{font-size:.85rem;border:1px solid #ffffff70;border-radius:999px;padding:4px 12px}h1{margin:0;font-size:clamp(1.6rem,4vw,2.1rem);line-height:1.25;max-width:32ch}.tagline{color:#e0eaf5;max-width:70ch;margin:12px 0 0}.byline{font-size:.85rem;color:#e0eaf5;margin-top:14px}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin:18px 0}h2{font-size:1.25rem;margin:0 0 10px;display:flex;align-items:center;gap:10px}h3{font-size:1rem;margin:0 0 8px}p{margin:8px 0 14px;max-width:80ch}.step-num{background:var(--um-blue-2);color:white;width:32px;height:32px;border-radius:50%;display:inline-grid;place-items:center;font-size:.9rem;flex:none}.intro-sec,.help{color:var(--muted)}.help{font-size:.9rem;display:block;margin:4px 0 8px}.notice{border-left:4px solid var(--accent);background:var(--soft);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}.etapas{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:8px;list-style:none;padding:0;margin:18px 0}.etapas a{display:block;height:100%;background:var(--soft);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:8px;padding:10px 12px;text-decoration:none;font-size:.9rem}.etapas b{display:block;color:var(--ink)}
+fieldset{margin:18px 0 0;padding:0;border:0;min-width:0}legend,.field-label{font-weight:650;font-size:.97rem}.field-label{display:block;margin:18px 0 5px}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}.choice{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:10px;padding:14px;cursor:pointer}.choice:has(input:checked){background:var(--soft);border-color:var(--um-blue-2);box-shadow:inset 0 4px var(--accent)}.choice input{margin:5px 0 0;accent-color:var(--um-blue-2);flex:none}.choice b,.choice small{display:block}.choice small{font-size:.85rem;color:var(--muted);margin-top:4px}input[type=text],input[type=url],textarea{width:100%;border:1px solid #9fadc0;border-radius:8px;padding:11px 12px;color:var(--ink);font:inherit;background:white}textarea{min-height:100px;resize:vertical;display:block}input[aria-invalid=true],textarea[aria-invalid=true]{border:2px solid #ad341b}fieldset[aria-invalid=true]{outline:2px solid #ad341b;outline-offset:5px;border-radius:4px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.example{border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-top:16px;background:var(--soft)}.example p:last-child{margin-bottom:0}summary{cursor:pointer;font-weight:650}details p{margin-top:12px}pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0 0}.check{display:flex;gap:10px;align-items:flex-start;margin:16px 0}.check input{margin-top:6px;accent-color:var(--um-blue-2);width:18px;height:18px;flex:none}.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px}.verification{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:10px}.verification .field-label:first-of-type{margin-top:10px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 10px}.btn{border:0;border-radius:999px;padding:12px 20px;font:700 .95rem var(--font-sans);cursor:pointer;background:var(--um-blue-2);color:white}.btn:hover{background:var(--um-blue-dark)}.btn.sec{background:var(--soft);color:var(--ink);border:1px solid #9fadc0}.btn.sec:hover{background:#dfe9f3}.errors{border:1px solid #ad341b;border-left:4px solid #ad341b;background:#fff5ef;border-radius:8px;padding:14px 18px;margin-top:18px}.errors a{color:#8b2c19}.errors ul{margin:8px 0;padding-left:20px}.status{color:var(--ink);font-size:.9rem;min-height:1.5em}.report{min-height:360px;font-size:.9rem}.progress-line{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:.9rem;margin-top:20px}progress{width:180px;height:10px;accent-color:var(--um-blue-2)}footer{font-size:.85rem;color:var(--muted);padding:14px 4px}footer p{max-width:none}footer .notice{background:white;border:1px solid var(--line);border-left:4px solid var(--accent)}[hidden]{display:none!important}noscript p{background:#fff5ef;padding:16px}
+@media(max-width:700px){.choices,.checks,.grid{grid-template-columns:1fr}.etapas{grid-template-columns:1fr 1fr}section.card{padding:18px}.brand-logo{height:40px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{.actions,.etapas,.skip{display:none}section.card{box-shadow:none;break-inside:avoid}body{background:white}}
+</style>
+<style>
+.consulta{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+footer .notice{border:1px solid var(--line);border-radius:8px}
+footer .footer-logo{height:38px;width:auto;max-width:100%;display:block;margin:2px 0 12px;opacity:.92}
+.consulta a{display:flex;gap:10px;align-items:baseline;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+.consulta a:hover{border-color:var(--um-blue-2);background:var(--soft)}
+.consulta a b{min-width:4.2rem;color:var(--um-blue-2)}
+.consulta a small{margin-left:auto;color:var(--muted);white-space:nowrap;font-weight:600}
+@media(max-width:560px){.consulta a{flex-wrap:wrap}.consulta a small{margin-left:4.2rem}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="accent-bar" aria-hidden="true"></div>
+<header class="site"><div class="inner">
+  <div class="topbar"><a href="https://www.fceia.unr.edu.ar" target="_blank" rel="noopener noreferrer" aria-label="FCEIA–UNR (abre en otra pestaña)"><img class="brand-logo" src="logo-fceia-blanco.png" alt="FCEIA — Universidad Nacional de Rosario" width="368" height="80"></a><span class="unit">CHIA · Unidad 4</span></div>
+  <h1>VibeCoding: construí una herramienta de Física con IA</h1>
+  <p class="tagline">De una idea a una microaplicación: definí el modelo, construí con Gemini Canvas y poné a prueba lo que genera.</p>
+  <div class="byline">Curso de Herramientas de Inteligencia Artificial · FCEIA–UNR</div>
+</div></header>
+<main class="wrap" id="contenido">
+<noscript><p>Activá JavaScript para ver las orientaciones y generar el informe. Las respuestas no se envían a servidores.</p></noscript>
+<section class="card" aria-labelledby="inicio"><h2 id="inicio">Qué tenés que hacer</h2>
+<p>Construí con la <strong>versión gratuita de Gemini Canvas</strong> una herramienta o simulador interactivo que permita resolver y explorar un problema de Física. Vas a definir qué necesitás, escribir instrucciones, mejorar la herramienta y comprobar sus resultados. No necesitás saber programar.</p>
+<p><strong>VibeCoding</strong> es construir software conversando con una IA. En esta actividad, tu responsabilidad es decidir qué debe hacer la herramienta y comprobar que sus resultados tengan sentido físico.</p>
+<ol><li>Elegí un problema del banco de Introducción a la Física, o proponé uno equivalente y consultalo antes con la cátedra.</li><li>Recorré las etapas en orden registrando aquí tus interacciones y decisiones. Si necesitás repasar teoría, tenés los apuntes de las unidades en «Material de consulta».</li><li>Compartí el HTML generado por Gemini y el link al NotebookLM con permiso de visualización.</li><li>Al finalizar, revisá y descargá el informe <strong>.txt</strong> para entregar en Moodle.</li></ol>
+<nav aria-label="Apartados de la actividad"><ol class="etapas"><li><a href="#etapa1"><b>01 · Definir</b>Problema y fuente</a></li><li><a href="#etapa2"><b>02 · Pedir</b>Primer prompt</a></li><li><a href="#etapa3"><b>03 · Evaluar y mejorar</b>Verificar e iterar</a></li><li><a href="#etapa4"><b>04 · Documentar</b>Fuentes y reflexión</a></li></ol></nav>
+<div class="notice"><strong>Tus respuestas quedan en esta pestaña.</strong> Esta página no las guarda ni las envía a servidores. Al recargar o cerrar podés perderlas: descargá un borrador para conservarlas.</div></section>
+<section class="card" id="material" aria-labelledby="t-material"><h2 id="t-material">Material de consulta</h2><p>Podés usar los apuntes de la cátedra mientras trabajás. Los PDF se abren en otra pestaña.</p><ul class="consulta">
+<li><a href="unidad2-equilibrio.pdf" target="_blank" rel="noopener noreferrer"><b>Unidad 2</b>Equilibrio<small>PDF</small></a></li>
+<li><a href="unidad3-movimiento.pdf" target="_blank" rel="noopener noreferrer"><b>Unidad 3</b>Movimiento<small>PDF</small></a></li>
+<li><a href="unidad4-optica-geometrica.pdf" target="_blank" rel="noopener noreferrer"><b>Unidad 4</b>Óptica geométrica<small>PDF</small></a></li>
+</ul></section>
+<form id="actividad" novalidate>
+<section class="card" id="etapa1" aria-labelledby="t1"><h2 id="t1"><span class="step-num">1.</span>Definir el problema</h2><p>Antes de solicitar código, decidí qué problema querés resolver y cómo debería funcionar la herramienta.</p>
+<fieldset id="tema-grupo" data-label="Tema de Física"><legend>Elegí tu problema</legend><div class="choices">
+<label class="choice"><input type="radio" name="tema" value="palanca" required><span><b>Equilibrio de una palanca o subibaja</b><small>Momento de una fuerza y equilibrio rotacional.</small></span></label>
+<label class="choice"><input type="radio" name="tema" value="movimiento" required><span><b>Movimiento rectilíneo</b><small>MRU y MRUV; podés incluir caída libre.</small></span></label>
+<label class="choice"><input type="radio" name="tema" value="refraccion" required><span><b>Refracción de la luz</b><small>Explorar el cambio de dirección entre dos medios.</small></span></label>
+<label class="choice"><input type="radio" name="tema" value="propio" required><span><b>Propongo un problema propio</b><small>Equivalente a los del banco y consultado con la cátedra.</small></span></label>
+</div></fieldset>
+<div class="example" id="orientacion" aria-live="polite"><strong>El problema que vas a explorar</strong><p>Elegí una opción para ver el enunciado.</p></div>
+<label class="field-label" for="problema">Problema y propósito</label><span class="help" id="h-problema">Describí la situación elegida y qué querés que se pueda resolver o explorar.</span><textarea id="problema" data-label="Problema y propósito" required aria-describedby="h-problema"></textarea>
+<div class="grid"><div><label class="field-label" for="entradas">Entradas y unidades</label><span class="help" id="h-entradas">Qué datos se podrán modificar y cuáles son sus rangos válidos.</span><textarea id="entradas" data-label="Entradas y unidades" required aria-describedby="h-entradas"></textarea></div><div><label class="field-label" for="salidas">Salidas y unidades</label><span class="help" id="h-salidas">Qué cálculos, gráficos, esquemas o mensajes deberá mostrar.</span><textarea id="salidas" data-label="Salidas y unidades" required aria-describedby="h-salidas"></textarea></div></div>
+<div id="fuente-propia" hidden><label class="field-label" for="fuente">Fuente teórica del problema propio</label><span class="help" id="h-fuente">Indicá el material en el que se basa el problema que acordaste con la cátedra.</span><textarea id="fuente" data-label="Fuente teórica del problema propio" disabled aria-describedby="h-fuente"></textarea></div>
+<label class="field-label" for="modelo">Modelo físico y supuestos</label><span class="help" id="h-modelo">Escribí las ecuaciones que vas a usar, definí las variables y explicá cuándo se aplican.</span><textarea id="modelo" data-label="Modelo físico y supuestos" required aria-describedby="h-modelo"></textarea>
+</section>
+<section class="card" id="etapa2" aria-labelledby="t2"><h2 id="t2"><span class="step-num">2.</span>Construir la aplicación: Primer prompt</h2>
+<p><strong>Cómo activar Canvas:</strong> entrá a <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Gemini (otra pestaña)</a>, abrí una conversación y hacé clic en el botón <strong>+</strong> junto al cuadro de mensaje. Seleccioná <strong>Canvas</strong>, escribí tu prompt y envialo.</p>
+<p>Redactá vos el prompt inicial a Gemini Canvas a partir de lo escrito en la sección anterior.</p>
+<details class="example"><summary>Qué revisar antes de enviar</summary><p>¿Explicaste el objetivo, el contexto físico, la audiencia, las restricciones y el formato de salida? ¿Indicaste el modelo y el apunte? Pedí una primera versión que puedas probar.</p></details><label class="field-label" for="prompt1">Primer prompt</label><span class="help" id="h-prompt1">Pegá el texto exacto que enviaste a Gemini.</span><textarea id="prompt1" data-label="Primer prompt" required aria-describedby="h-prompt1"></textarea>
+<fieldset id="elementosPrompt" data-label="Elementos que incluyó tu primer prompt" aria-describedby="h-elementosPrompt"><legend>Elementos que incluyó tu primer prompt</legend><span class="help" id="h-elementosPrompt">Marcá los elementos que incluiste. Podés seleccionar más de uno.</span><div class="prompt-elements">
+<label class="check"><input type="checkbox" id="elementoObjetivo" value="Objetivo">Objetivo</label>
+<label class="check"><input type="checkbox" id="elementoContexto" value="Contexto">Contexto</label>
+<label class="check"><input type="checkbox" id="elementoAudiencia" value="Audiencia">Audiencia</label>
+<label class="check"><input type="checkbox" id="elementoRestricciones" value="Restricciones">Restricciones</label>
+<label class="check"><input type="checkbox" id="elementoFormato" value="Formato de salida esperado">Formato de salida esperado</label>
+<label class="check"><input type="checkbox" id="elementoRol" value="Rol o persona">Rol o persona</label>
+</div></fieldset>
+<label class="field-label" for="resultado1">Registro de la primera versión</label><span class="help" id="h-resultado1">Describí qué generó, qué controles probaste, un resultado observado y qué funcionó o falló. Si no pudiste ejecutarla, explicá el obstáculo.</span><textarea id="resultado1" data-label="Registro de la primera versión" required aria-describedby="h-resultado1"></textarea>
+</section>
+<section class="card" id="etapa3" aria-labelledby="t3"><h2 id="t3"><span class="step-num">3.</span>Evaluar y mejorar</h2>
+<h3 class="substage first">Verificación</h3>
+<p>Verificá <strong>dos resultados con conjuntos de datos distintos</strong> usando un cálculo manual, una calculadora o una planilla. Repetir la pregunta a la IA no es una verificación independiente.</p>
+<div class="checks">
+<fieldset class="verification"><legend>Verificación 1</legend>
+<label class="field-label" for="v1datos">Datos y versión evaluada</label><textarea id="v1datos" required data-label="Verificación 1 · datos y versión" placeholder="Entradas con unidades, salida a verificar y versión."></textarea>
+<label class="field-label" for="v1app">Resultado de la aplicación</label><textarea id="v1app" required data-label="Verificación 1 · resultado de la aplicación" placeholder="Valor y unidad."></textarea>
+<label class="field-label" for="v1calculo">Cálculo independiente</label><textarea id="v1calculo" required data-label="Verificación 1 · cálculo independiente" placeholder="Método, ecuación, sustitución, resultado y unidad."></textarea>
+<label class="field-label" for="v1comparacion">Comparación y conclusión</label><textarea id="v1comparacion" required data-label="Verificación 1 · comparación" placeholder="¿Coinciden? Explicá las diferencias o el redondeo."></textarea>
+</fieldset>
+<fieldset class="verification"><legend>Verificación 2</legend>
+<label class="field-label" for="v2datos">Datos y versión evaluada</label><textarea id="v2datos" required data-label="Verificación 2 · datos y versión" placeholder="Usá datos distintos de la primera verificación."></textarea>
+<label class="field-label" for="v2app">Resultado de la aplicación</label><textarea id="v2app" required data-label="Verificación 2 · resultado de la aplicación" placeholder="Valor y unidad."></textarea>
+<label class="field-label" for="v2calculo">Cálculo independiente</label><textarea id="v2calculo" required data-label="Verificación 2 · cálculo independiente" placeholder="Método, ecuación, sustitución, resultado y unidad."></textarea>
+<label class="field-label" for="v2comparacion">Comparación y conclusión</label><textarea id="v2comparacion" required data-label="Verificación 2 · comparación" placeholder="¿Coinciden? Explicá las diferencias o el redondeo."></textarea>
+</fieldset></div>
+<h3 class="substage">Análisis de casos límite</h3>
+<p>Analizá casos límite del problema elegido y pedile a la misma IA que revise críticamente la herramienta. No necesitás encontrar fallas: registrá lo que esperabas, lo observado y tu conclusión.</p>
+<div class="example" id="casos-tema" aria-live="polite"><strong>Casos límite para tu herramienta</strong><p>Elegí un problema en la primera sección para ver las situaciones que podés probar.</p></div>
+<label class="field-label" for="limite">Análisis de casos límite</label><span class="help" id="h-limite">Para cada caso, anotá comportamiento esperado, resultado observado y conclusión. Si no encontraste fallas, explicá qué pruebas apoyan esa conclusión.</span><textarea id="limite" data-label="Análisis de casos límite" required aria-describedby="h-limite"></textarea>
+<label class="field-label" for="promptCritico">Pedido de revisión crítica a la IA</label><span class="help" id="h-promptCritico">Escribí un prompt para que la misma IA revise críticamente la herramienta que creó. Pedile que examine el modelo físico, los supuestos, las unidades y los rangos de entrada; que identifique posibles resultados incorrectos o engañosos y proponga pruebas para comprobarlos. Pedile que distinga entre errores comprobados, posibles problemas y limitaciones del modelo. Enviá el prompt y pegá aquí el texto exacto que usaste.</span><textarea id="promptCritico" data-label="Pedido de revisión crítica a la IA" required aria-describedby="h-promptCritico"></textarea>
+<label class="field-label" for="revisionCritica">Respuesta crítica de la IA y tu evaluación</label><span class="help" id="h-revisionCritica">Resumí lo que señaló la IA y explicá qué comprobaste, qué aceptaste o descartaste y por qué. Si no señaló problemas, evaluá igualmente la pertinencia de sus pruebas.</span><textarea id="revisionCritica" data-label="Respuesta crítica de la IA y tu evaluación" required aria-describedby="h-revisionCritica"></textarea>
+<h3 class="substage">Mejora significativa</h3>
+<label class="field-label" for="prompt2">Prompt para una mejora significativa</label><span class="help" id="h-prompt2">Pedí corregir un cálculo, validar entradas, aclarar unidades o agregar un gráfico útil. Explicá el problema y el comportamiento deseado. Un cambio de color por sí solo no alcanza.</span><textarea id="prompt2" required data-label="Prompt de mejora" aria-describedby="h-prompt2"></textarea>
+<label class="field-label" for="mejora">Resultado de la mejora y nueva prueba</label><span class="help" id="h-mejora">Compará antes y después. Anotá los datos que usaste para probar el cambio, lo esperado y lo observado; indicá si resolvió el problema.</span><textarea id="mejora" required data-label="Mejora y nueva prueba" aria-describedby="h-mejora"></textarea>
+<label class="field-label" for="codigo">Código de la aplicación</label><span class="help" id="h-codigo">Copiá el código completo de la versión final de tu aplicación en Gemini Canvas y pegalo aquí.</span><textarea id="codigo" class="codigo" data-label="Código de la aplicación" required aria-describedby="h-codigo" spellcheck="false" autocapitalize="off"></textarea>
+</section>
+<section class="card" id="etapa4" aria-labelledby="t4"><h2 id="t4"><span class="step-num">4.</span>Fuentes, trazabilidad y reflexión</h2><p>Usá <strong>NotebookLM</strong> para revisar el respaldo teórico de tu herramienta.</p>
+<ol><li>Creá o reutilizá un cuaderno en NotebookLM y cargá el apunte del problema elegido. Si usaste otras fuentes confiables, agregalas también. Incorporá además el código completo de la versión final de tu aplicación, el mismo que pegaste en la sección 3.</li><li>Describí el modelo que utiliza tu aplicación y consultá qué ecuaciones y supuestos están respaldados por las fuentes teóricas cargadas. Usá el código para que NotebookLM pueda contrastar la implementación con ese modelo. Pedí que indique las referencias y revisá las citas en el material original.</li><li>Guardá la consulta y la respuesta como una nota en el cuaderno y registrá abajo qué pudiste comprobar. Esta revisión de fuentes complementa las pruebas de la sección 3.</li></ol>
+<label class="field-label" for="usoFuente">Relación entre fuentes y herramienta</label><span class="help" id="h-usoFuente">Indicá las fuentes cargadas, la consulta que hiciste a NotebookLM y una síntesis de su respuesta. Relacioná las ecuaciones o supuestos con las referencias citadas y explicá qué comprobaste al volver al apunte. Si algo no está respaldado, aclaralo.</span><textarea id="usoFuente" data-label="Relación entre fuentes y herramienta" required aria-describedby="h-usoFuente"></textarea>
+<label class="field-label" for="linkNotebook">Enlace al cuaderno de NotebookLM</label><span class="help" id="h-linkNotebook">Compartí el cuaderno con permiso de visualización para la cátedra y pegá aquí el enlace. Asegurate de que puedan acceder a las fuentes y a una nota guardada con la consulta y la respuesta que registraste.</span><input type="url" id="linkNotebook" data-label="Enlace al cuaderno de NotebookLM" required aria-describedby="h-linkNotebook" inputmode="url" placeholder="https://…">
+<label class="field-label" for="aporteIA">Qué aportó la IA</label><span class="help" id="h-aporteIA">¿Qué resolvió por vos? ¿Qué errores o dificultades aparecieron, si los hubo? ¿Cómo comprobaste sus propuestas?</span><textarea id="aporteIA" data-label="Qué aportó la IA" required aria-describedby="h-aporteIA"></textarea>
+<label class="field-label" for="decisiones">Qué decisiones tomaste vos</label><span class="help" id="h-decisiones">Elegí decisiones concretas sobre el modelo, las instrucciones, las mejoras y la aceptación o rechazo de respuestas.</span><textarea id="decisiones" data-label="Qué decisiones tomaste vos" required aria-describedby="h-decisiones"></textarea>
+<label class="field-label" for="aprendizaje">Qué aprendiste</label><span class="help" id="h-aprendizaje">Reflexioná sobre la Física del problema y sobre construir con IA: qué podés delegar, qué tenés que verificar y qué limitaciones reconocés.</span><textarea id="aprendizaje" data-label="Qué aprendiste" required aria-describedby="h-aprendizaje"></textarea>
+</section>
+<section class="card" id="entrega" aria-labelledby="t-entrega"><h2 id="t-entrega">Tu informe</h2><p>Completá tu nombre, revisá el informe y descargalo. Después subí el archivo <strong>.txt</strong> a la tarea de la Unidad 4 en Moodle. La página no realiza la entrega por vos.</p>
+<label class="field-label" for="nombre">Nombre y apellido</label><input type="text" id="nombre" autocomplete="name" required data-label="Nombre y apellido">
+<div class="progress-line"><label for="progreso">Campos con respuesta</label><progress id="progreso" max="1" value="0"></progress><span id="avance">0</span></div><p class="help">El contador solo indica que escribiste: la revisión del contenido te corresponde a vos.</p>
+<div id="errores" class="errors" tabindex="-1" hidden aria-labelledby="titulo-errores"><strong id="titulo-errores">Revisá antes de entregar</strong><ul id="lista-errores"></ul><p>Podés completar lo pendiente o descargar un borrador identificado como incompleto.</p><button type="button" class="btn sec" id="borrador">Descargar borrador .txt</button></div>
+<div class="actions"><button type="button" class="btn sec" id="ver">Ver informe</button><button type="button" class="btn" id="descargar">Descargar informe .txt</button></div>
+<p class="status" id="estado" role="status"></p>
+<div id="vista" hidden><label class="field-label" for="informe">Vista previa del informe</label><textarea id="informe" class="report" readonly spellcheck="false"></textarea><p class="help">La descarga siempre incluye las respuestas actuales, aunque las cambies después de abrir esta vista previa.</p></div>
+</section>
+</form>
+<footer><img class="footer-logo" src="logo-fceia-navy.png" alt="Facultad de Ciencias Exactas, Ingeniería y Agrimensura — Universidad Nacional de Rosario" width="368" height="80"><p>Curso de Herramientas de Inteligencia Artificial · FCEIA–UNR · Unidad 4</p><p>«&nbsp;VibeCoding: construí una herramienta de Física con IA&nbsp;» es una actividad de la cátedra de <strong>Herramientas de Inteligencia Artificial</strong> (FCEIA–UNR), publicada bajo licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener noreferrer">CC&nbsp;BY&nbsp;4.0</a>. Podés compartirla y adaptarla citando la fuente.</p><div class="notice"><p><strong>Aviso sobre el uso de IA</strong></p><p>El HTML, el CSS y el JavaScript de esta página se escribieron con asistencia de IA generativa; las decisiones pedagógicas y la revisión final son de la cátedra. La actividad funciona entera en tu navegador y <strong>no contiene ninguna función de IA</strong>: no genera, no evalúa ni transmite tus respuestas.</p></div></footer>
+</main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const form = $('actividad');
+const fields = [...form.querySelectorAll('textarea:not([readonly]), input[type=text], input[type=url]')];
+const promptOptions=['elementoObjetivo','elementoContexto','elementoAudiencia','elementoRestricciones','elementoFormato','elementoRol'].map($);
+function selectedPromptElements(){return promptOptions.filter(option=>option.checked).map(option=>option.value);}
+function requiredFields(){return fields.filter(field => field.required && !field.disabled);}
+const topics = {
+  "palanca": {
+    "name": "Equilibrio de una palanca o subibaja",
+    "guide": "Construí una herramienta para explorar el equilibrio de una palanca o subibaja. Debe permitir variar las cargas y sus distancias al apoyo, representar el sistema e indicar si está en equilibrio.",
+    "cases": "Probá cargas iguales a igual distancia del apoyo, cargas diferentes que se compensen y una carga ubicada en el apoyo. ¿Qué ocurre con el momento resultante? Revisá también cómo responde ante una masa negativa."
+  },
+  "movimiento": {
+    "name": "Movimiento rectilíneo: MRU y MRUV",
+    "guide": "Construí una herramienta para explorar movimiento rectilíneo uniforme y uniformemente variado. Debe permitir modificar las condiciones iniciales y la aceleración, representar el movimiento y mostrar gráficas de posición y velocidad en función del tiempo. Podés incluir caída libre.",
+    "cases": "Probá aceleración nula, reposo inicial sin aceleración y velocidad inicial con signo opuesto a la aceleración. ¿Las gráficas y el movimiento son coherentes? Si incluiste caída libre con suelo, observá qué ocurre al llegar a él."
+  },
+  "refraccion": {
+    "name": "Refracción de la luz",
+    "guide": "Construí una herramienta para explorar la refracción de un rayo de luz al pasar entre dos medios. Debe permitir variar los índices de refracción y el ángulo de incidencia, calcular el ángulo de refracción y representar los rayos respecto de la normal.",
+    "cases": "Probá incidencia normal e índices de refracción iguales. Luego explorá el paso de un medio de mayor índice a uno de menor índice, con ángulos cercanos y superiores al crítico. ¿La herramienta distingue cuándo hay refracción y cuándo hay reflexión interna total? Fundamentá con una fuente lo que necesites ampliar del apunte."
+  },
+  "propio": {
+    "name": "Problema propio consultado con la cátedra",
+    "guide": "Proponé un problema de Física equivalente a los del banco y consultalo antes con la cátedra. Describí abajo la situación y qué debería permitir explorar la herramienta.",
+    "cases": "Elegí situaciones que pongan a prueba el modelo del problema acordado: entradas nulas, valores próximos a sus límites o condiciones fuera de su dominio. Justificá qué debería ocurrir en cada caso y comparalo con lo que muestra tu herramienta."
+  }
+};
+function selectedTopic(){return form.querySelector('input[name=tema]:checked');}
+function issues(){
+  const pending = [];
+  if(!selectedTopic()) pending.push({id:'tema-grupo', label:'Elegí un tema de Física.'});
+  if(!selectedPromptElements().length) pending.push({id:'elementosPrompt',label:'Marcá los elementos que incluyó tu primer prompt.'});
+  for(const field of requiredFields()){if(!field.value.trim()) pending.push({id:field.id,label:field.dataset.label + ': falta completar.'});}
+  const notebookLink=$('linkNotebook').value.trim();
+  if(notebookLink){try{const url=new URL(notebookLink);if(!['http:','https:'].includes(url.protocol))throw new Error();}catch{pending.push({id:'linkNotebook',label:'Enlace al cuaderno de NotebookLM: usá una URL completa que empiece con https:// o http://.'});}}
+  return pending;
+}
+function updateProgress(){
+  const activeRequiredFields=requiredFields();
+  const total=activeRequiredFields.length+2;
+  const count=activeRequiredFields.filter(field=>field.value.trim()).length+(selectedTopic()?1:0)+(selectedPromptElements().length?1:0);
+  $('progreso').max=total;$('progreso').value=count;$('avance').textContent=count+' de '+total;
+}
+function showIssues(pending, focus=false){
+  $('lista-errores').replaceChildren();
+  for(const field of fields) field.removeAttribute('aria-invalid');
+  $('tema-grupo').removeAttribute('aria-invalid');
+  $('elementosPrompt').removeAttribute('aria-invalid');
+  for(const issue of pending){
+    $(issue.id).setAttribute('aria-invalid','true');
+    const li=document.createElement('li'), anchor=document.createElement('a');
+    anchor.href='#'+issue.id;anchor.textContent=issue.label;
+    anchor.addEventListener('click',event=>{event.preventDefault();const target=issue.id==='tema-grupo'?form.querySelector('input[name=tema]'):issue.id==='elementosPrompt'?promptOptions[0]:$(issue.id);target.focus();target.scrollIntoView({block:'center',behavior:'auto'});});
+    li.append(anchor);$('lista-errores').append(li);
+  }
+  $('errores').hidden=!pending.length;
+  if(focus && pending.length) $('errores').focus();
+}
+const groups=[
+  [
+    "1. Definir el problema",
+    [
+      "problema",
+      "entradas",
+      "salidas",
+      "fuente",
+      "modelo"
+    ]
+  ],
+  [
+    "2. Construir la aplicación: Primer prompt",
+    [
+      "prompt1",
+      "elementosPrompt",
+      "resultado1"
+    ]
+  ],
+  [
+    "3. Evaluar y mejorar",
+    [
+      "v1datos",
+      "v1app",
+      "v1calculo",
+      "v1comparacion",
+      "v2datos",
+      "v2app",
+      "v2calculo",
+      "v2comparacion",
+      "limite",
+      "promptCritico",
+      "revisionCritica",
+      "prompt2",
+      "mejora",
+      "codigo"
+    ]
+  ],
+  [
+    "4. Fuentes, trazabilidad y reflexión",
+    [
+      "usoFuente",
+      "linkNotebook",
+      "aporteIA",
+      "decisiones",
+      "aprendizaje"
+    ]
+  ]
+];
+function buildReport(){
+  const pending=issues(), topic=selectedTopic();
+  const lines=['CHIA · FCEIA–UNR · UNIDAD 4','VibeCoding: construí una herramienta de Física con IA','', 'Fecha de generación: '+new Date().toLocaleString('es-AR'), 'Nombre y apellido: '+($('nombre').value.trim()||'[SIN COMPLETAR]'),'Tema: '+(topic?topics[topic.value].name:'[SIN SELECCIONAR]'),''];
+  if(pending.length)lines.push('PENDIENTES',...pending.map(issue=>'• '+issue.label),'');
+  for(const [heading, ids] of groups){lines.push(heading,'='.repeat(heading.length));for(const id of ids){const field=$(id);if(field.disabled)continue;if(id==='elementosPrompt'){lines.push(field.dataset.label+':',selectedPromptElements().join(', ')||'[SIN COMPLETAR]','');continue;}const value=field.id==='codigo'?field.value:field.value.trim();lines.push(field.dataset.label+':',value||(field.required?'[SIN COMPLETAR]':'[NO INFORMADO — OPCIONAL]'),'');}}
+  lines.push('='.repeat(50),'VibeCoding: construí una herramienta de Física con IA — cátedra de Herramientas de','Inteligencia Artificial, FCEIA–UNR. CC BY 4.0.');
+  return '\uFEFF'+lines.join('\r\n');
+}
+function preview(){ $('informe').value=buildReport();$('vista').hidden=false; }
+function download(draft=false){
+  const pending=issues();showIssues(pending,true);
+  if(pending.length && !draft){$('estado').textContent='Hay campos pendientes. Revisá la lista antes de descargar el informe final.';return;}
+  const text=buildReport();
+  const slug=$('nombre').value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'estudiante';
+  const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));
+  const anchor=document.createElement('a');anchor.href=url;anchor.download='CHIA-U4-'+(pending.length?'borrador-':'')+slug+'.txt';document.body.append(anchor);anchor.click();anchor.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  preview();$('estado').textContent='Se solicitó la descarga '+(pending.length?'del borrador incompleto':'del informe')+'. Buscá el archivo .txt en tus descargas y revisalo antes de subirlo a Moodle.';
+}
+form.addEventListener('submit',event=>event.preventDefault());
+form.addEventListener('input',()=>{updateProgress();$('estado').textContent='';if(!$('errores').hidden)showIssues(issues());if(!$('vista').hidden)preview();});
+form.addEventListener('change',event=>{
+  if(event.target.name==='tema'){
+    const chosen=topics[event.target.value];
+    const title=document.createElement('strong'), paragraph=document.createElement('p');
+    title.textContent=chosen.name;paragraph.textContent=chosen.guide;
+    $('orientacion').replaceChildren(title,paragraph);
+    const custom=event.target.value==='propio';
+    $('fuente-propia').hidden=!custom;$('fuente').disabled=!custom;$('fuente').required=custom;
+    const casesTitle=document.createElement('strong'), casesText=document.createElement('p');
+    casesTitle.textContent='Casos límite · '+chosen.name;casesText.textContent=chosen.cases;
+    $('casos-tema').replaceChildren(casesTitle,casesText);updateProgress();
+    if(!$('errores').hidden)showIssues(issues());if(!$('vista').hidden)preview();
+  }
+});
+$('ver').addEventListener('click',()=>{const pending=issues();showIssues(pending);preview();$('estado').textContent=pending.length?'Vista previa de un borrador: revisá los campos pendientes.':'Vista previa actualizada. Revisá el contenido antes de entregar.';$('informe').focus();});
+$('descargar').addEventListener('click',()=>download());
+$('borrador').addEventListener('click',()=>download(true));
+window.addEventListener('beforeunload',event=>{if(fields.some(field=>field.value.trim())||selectedTopic()||selectedPromptElements().length){event.preventDefault();event.returnValue='';}});
+updateProgress();
+</script>
+</body>
+</html>
